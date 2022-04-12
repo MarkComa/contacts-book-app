@@ -1,0 +1,25 @@
+.searchContact {
+	margin: 8px;
+	padding: 8px;
+	background: #fff;
+	border-radius: 8px;
+
+	& input {
+		font-size: 16px;
+		border: 2px solid #19208c;
+		border-radius: 8px;
+		margin-right: 16px;
+	}
+}
+.btn {
+	font-size: 16px;
+	padding: 1px 6px;
+	background: #19208c;
+	color: #fff;
+	cursor: pointer;
+	border: 2px solid #19208c;
+	border-radius: 8px;
+	&:hover {
+		background: lighten(#19208c, 15%);
+	}
+}

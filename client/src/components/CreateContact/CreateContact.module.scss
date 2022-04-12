@@ -1,0 +1,25 @@
+.createContact {
+	margin: 8px;
+	padding: 8px;
+	background: #fff;
+	border-radius: 8px;
+	& input {
+		font-size: 16px;
+		border: 2px solid #19208c;
+		border-radius: 8px;
+	}
+	& input:not(:last-child) {
+		margin-right: 16px;
+	}
+	& input:last-child {
+		background: #19208c;
+		color: #fff;
+		cursor: pointer;
+		&:hover {
+			background: lighten(#19208c, 15%);
+		}
+	}
+	& span {
+		margin-right: 8px;
+	}
+}
