@@ -14,3 +14,15 @@ export const сontactsAPI = {
     }
 
 }
+export const authAPI = {
+    me() {
+      return axios.get(`auth/me`);
+    },
+    login(email:string, password:string) {
+      return axios.post(`auth/login`, { email, password });
+    },
+    logout() {
+      return axios.delete(`auth/login`);
+    },
+  };
+  
