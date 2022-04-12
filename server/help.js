@@ -2,7 +2,7 @@
 const corsMiddleware = require('./middleware/cors.middleware')
 
 app.use(corsMiddleware)
-
+    
 const CONTACTS = [
     {id: v4(),
     name: 'Александр',

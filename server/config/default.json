@@ -1,3 +1,4 @@
 {
-    "serverPort" : 5000
+    "serverPort" : 5000,
+    "dbUrl" : "mongodb+srv://markcoma:******@contactsbook.ujpmh.mongodb.net/contactsbook?retryWrites=true&w=majority"
 }
