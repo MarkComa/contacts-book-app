@@ -1,28 +1,37 @@
-import axios from 'axios'
+import axios from "axios";
+import { contact } from "../components/ContactCard/ContactCard.props";
 
-export const userAPI = {
-    
-}
+const ins = axios.create({
+	baseURL: "http://localhost:5000",
+});
+
+export const userAPI = {};
 
 export const сontactsAPI = {
+	getContact() {
+		return ins.get(`/contact`);
+	},
 
-    getContact() {
-        return axios
-        .get(``)
-        .then(res => {
-            return res.data})
-    }
+	pushContact(body: contact) {
+		return ins.post("/contact", body);
+	},
 
-}
+	removeContact(id: string) {
+		return ins.delete(`/contact/${id}`);
+	},
+};
 export const authAPI = {
-    me() {
-      return axios.get(`auth/me`);
-    },
-    login(email:string, password:string) {
-      return axios.post(`auth/login`, { email, password });
-    },
-    logout() {
-      return axios.delete(`auth/login`);
-    },
-  };
-  
+	me() {
+		return ins.get(`auth/me`);
+	},
+	login(email: string, password: string) {
+		return ins.post(`auth/login`, { email, password });
+	},
+	logout() {
+		return ins.delete(`auth/login`);
+	},
+
+	registration(email: string, password: string) {
+		return ins.post("/auth/registration", { email, password });
+	},
+};
