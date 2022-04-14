@@ -1,6 +1,7 @@
 const Router = require("express");
 const User = require("../models/User");
 const router = new Router();
+const mongoose = require("mongoose");
 
 //Получить массив контактов из бд
 const CONTACTS = User.find({}, function (err, docs) {

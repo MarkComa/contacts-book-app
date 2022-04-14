@@ -3,20 +3,26 @@ const mongoose = require("mongoose");
 const config = require("config");
 const authRouter = require("./routes/auth.routes");
 const contactRouter = require("./routes/contact.routes");
-
-//const corsMiddleware = require("./middleware/cors.middleware");
+const PORT = config.get("serverPort");
 const app = express();
 
-//app.use(corsMiddleware);
+app.use(function cors(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+	res.header("Access-Control-Allow-Headers", "Content-Type");
+	next();
+});
+
 app.use(express.json());
 app.use("/api/auth", authRouter);
 app.use("/api", contactRouter);
 
-const PORT = config.get("serverPort");
-
 const start = async () => {
 	try {
-		await mongoose.connect(config.get("dbUrl"));
+		await mongoose.connect(config.get("dbUrl"), {
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		});
 
 		app.listen(PORT, () => console.log(`Server has been started ${PORT}`));
 	} catch (e) {

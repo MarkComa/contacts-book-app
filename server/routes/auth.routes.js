@@ -23,7 +23,8 @@ router.post(
 					.json({ message: "Uncorect request", errors });
 			}
 			const { email, password } = req.body;
-			const candidate = await email.findOne({ email });
+			const candidate = await User.findOne({ email });
+
 			if (candidate) {
 				return res
 					.status(400)

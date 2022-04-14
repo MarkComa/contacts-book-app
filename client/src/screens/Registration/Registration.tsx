@@ -3,12 +3,11 @@ import { Button } from "../../components/Button/Button";
 import { Input } from "../../components/Input/Input";
 import s from "./Registration.module.css";
 import { NavLink } from "react-router-dom";
-import { authAPI } from "../../api/api";
+import { registration } from "../../api/api";
 
 export const Registration = () => {
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
-
 	return (
 		<div className={s.registration}>
 			<div className={s.block}>
@@ -30,7 +29,7 @@ export const Registration = () => {
 				<div className={s.actions}>
 					<Button
 						className={s.btn}
-						onClick={() => authAPI.registration(email, password)}
+						onClick={() => registration(email, password)}
 					>
 						Зарегистрироваться
 					</Button>
