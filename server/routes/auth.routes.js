@@ -23,14 +23,15 @@ router.post(
 					.json({ message: "Uncorect request", errors });
 			}
 			const { email, password } = req.body;
+			
 			const candidate = await User.findOne({ email });
-
+			
 			if (candidate) {
 				return res
 					.status(400)
 					.json({ message: `User with email ${email} alredy exist` });
 			}
-			const hashPassword = await bcrypt.hash(password, 5);
+			const hashPassword = await bcrypt.hash(password, 2);
 
 			const user = new User({ email, password: hashPassword });
 			await user.save();

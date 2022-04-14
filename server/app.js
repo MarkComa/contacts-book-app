@@ -19,9 +19,12 @@ app.use("/api", contactRouter);
 
 const start = async () => {
 	try {
-		await mongoose.connect(config.get("dbUrl"), {
+		await mongoose.connect('mongodb+srv://markcoma:1793252mD@contactsbook.ujpmh.mongodb.net/contactsbook?retryWrites=true&w=majority', {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
+			useCreateIndex:true,
+			useFindAndModify:true
+			
 		});
 
 		app.listen(PORT, () => console.log(`Server has been started ${PORT}`));
