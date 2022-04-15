@@ -7,12 +7,12 @@
 		font-size: 16px;
 		border: 2px solid #19208c;
 		border-radius: 8px;
-	}
-	& input:not(:last-child) {
 		margin-right: 16px;
 	}
-	& input:last-child {
+	& button {
 		background: #19208c;
+		border-radius: 8px;
+
 		color: #fff;
 		cursor: pointer;
 		&:hover {

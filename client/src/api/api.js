@@ -2,14 +2,63 @@ import axios from "axios";
 
 export const registration = async (email, password) => {
 	try {
-		const res = await axios.post("/api/auth/registration", { email, password });
-		console.log(res);
-		alert(res.data.message);
+		await axios
+			.post("http://localhost:5000/api/auth/registration", {
+				email,
+				password,
+			})
+			.then((res) => alert(res.data.message));
 	} catch (error) {
 		alert(error);
 	}
 };
+export const login = async (email, password) => {
+	try {
+		await axios
+			.post("http://localhost:5000/api/auth/login", {
+				email,
+				password,
+			})
+			.then((res) => console.log(res));
+	} catch (error) {
+		console.log(error);
+	}
+};
 
+export const createContact = async (name, numberPhone) => {
+	try {
+		await axios
+			.post("http://localhost:5000/api/contacts", {
+				name,
+				numberPhone,
+			})
+			.then((res) => console.log(res));
+	} catch (error) {
+		console.log(error);
+	}
+};
+export const getContacts = async (userId) => {
+	try {
+		await axios
+			.get("http://localhost:5000/api/contacts", {
+				params: { userId },
+			})
+			.then((res) => console.log(res.data));
+	} catch (error) {
+		console.log(error);
+	}
+};
+export const removeContact = async (id) => {
+	try {
+		await axios
+			.post(`http://localhost:5000/api/contacts:${id}`)
+			.then(() => {
+				/* вызываем функцию получения списка контактов */
+			});
+	} catch (error) {
+		console.log(error);
+	}
+};
 // export const userAPI = {};
 
 // export const сontactsAPI = {

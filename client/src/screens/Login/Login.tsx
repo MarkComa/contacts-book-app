@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { login } from "../../api/api";
 import { Button } from "../../components/Button/Button";
 import { Input } from "../../components/Input/Input";
 import s from "./Login.module.css";
@@ -28,7 +29,7 @@ export const Login = () => {
 				<div className={s.actions}>
 					<Button
 						className={s.btn}
-						// onClick={() => authAPI.login(email, password)}
+						onClick={() => login(email, password)}
 					>
 						Войти
 					</Button>
