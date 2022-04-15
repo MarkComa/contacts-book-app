@@ -1,39 +1,44 @@
 const Router = require("express");
-const User = require("../models/User");
 const router = new Router();
-const mongoose = require("mongoose");
-
-//Получить массив контактов из бд
-const CONTACTS = User.find({}, function (err, docs) {
-	mongoose.disconnect();
-	if (err) return console.log(err);
-	console.log(docs);
-});
+const Contacts = require("../models/Contacts");
 
 //GET
-router.get("/contacts", (req, res) => {
+router.get("/contacts", async (req, res) => {
 	try {
-		res.status(200).json(CONTACTS);
+		const { userId } = req.query;
+		const contacts = await Contacts.find({ owner: userId });
+		res.json(contacts);
 	} catch (e) {
 		console.log(e);
 	}
 });
 
 //POST
-router.post("/contacts", (req, res) => {
-	const contact = { ...req.body, id: v4(), marked: false };
-	CONTACTS.push(contact);
-	res.status(201).json(contact);
+router.post("/contacts", async (req, res) => {
+	try {
+		const { name, phoneNumber, userId } = req.body;
+
+		const contact = new Contacts({ owner: userId, name, phoneNumber });
+		await contact.save();
+		res.json(contact);
+	} catch (error) {
+		console.log(error);
+	}
 });
+
 //DELETE
-router.delete("/contacts/:id", (req, res) => {
+router.delete("/contacts/:id", async (req, res) => {
+	try {
+		const contact = await Contacts.findOneAndDellete({
+			_id: req.params.id,
+		});
+		res.json(contact);
+	} catch (error) {
+		console.log(error);
+	}
+
 	CONTACTS = CONTACTS.filter((c) => c.id !== req.params.id);
 	res.status(200).json({ message: "Контакт был удален" });
 });
-//PUT
-router.delete("/contacts/:id", (req, res) => {
-	const idx = CONTACTS.findIndex((c) => c.id === req.params.id);
-	CONTACTS[idx] = req.body;
-	res.json(CONTACTS.idx);
-});
+
 module.exports = router;

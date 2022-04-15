@@ -6,6 +6,9 @@ const contactRouter = require("./routes/contact.routes");
 const PORT = config.get("serverPort");
 const app = express();
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.use(function cors(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
@@ -13,18 +16,16 @@ app.use(function cors(req, res, next) {
 	next();
 });
 
-app.use(express.json());
 app.use("/api/auth", authRouter);
 app.use("/api", contactRouter);
 
 const start = async () => {
 	try {
-		await mongoose.connect('mongodb+srv://markcoma:1793252mD@contactsbook.ujpmh.mongodb.net/contactsbook?retryWrites=true&w=majority', {
+		await mongoose.connect(config.get("dbUrl"), {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
-			useCreateIndex:true,
-			useFindAndModify:true
-			
+			useCreateIndex: true,
+			useFindAndModify: true,
 		});
 
 		app.listen(PORT, () => console.log(`Server has been started ${PORT}`));

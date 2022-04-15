@@ -1,5 +1,5 @@
 {
     "serverPort" : 5000,
-    "dbUrl": "mongodb+srv://markcoma:1793252mD@contactsbook.ujpmh.mongodb.net/contactsbook?retryWrites=true&w=majority",
+    "dbUrl": "mongodb+srv://markcoma:1793252mD@contactsbook.ujpmh.mongodb.net/contactsbook",
     "secretKey": "cb-secret-key"
 }
