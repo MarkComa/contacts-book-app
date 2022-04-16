@@ -1,28 +1,20 @@
 import axios from "axios";
+const ins = axios.create({
+	baseURL: "http://localhost:5000/api",
+});
 
-export const registration = async (email, password) => {
-	try {
-		await axios
-			.post("http://localhost:5000/api/auth/registration", {
-				email,
-				password,
-			})
-			.then((res) => alert(res.data.message));
-	} catch (error) {
-		alert(error);
-	}
-};
-export const login = async (email, password) => {
-	try {
-		await axios
-			.post("http://localhost:5000/api/auth/login", {
-				email,
-				password,
-			})
-			.then((res) => console.log(res));
-	} catch (error) {
-		console.log(error);
-	}
+export const authAPI = {
+	login(email, password) {
+		return ins.post("/auth/login", {
+			email,
+			password,
+		});
+	},
+	registration(email, password) {
+		return ins.post("/auth/registration", { 
+			email,
+			password });
+	},
 };
 
 export const createContact = async (name, numberPhone) => {

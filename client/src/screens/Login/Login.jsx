@@ -1,13 +1,20 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { login } from "../../api/api";
+import React, { useState } from "react";	
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, NavLink } from "react-router-dom";
 import { Button } from "../../components/Button/Button";
 import { Input } from "../../components/Input/Input";
+import { login } from "../../redux/reducers/authReducer";
 import s from "./Login.module.css";
-
 export const Login = () => {
-	const [email, setEmail] = useState<string>("");
-	const [password, setPassword] = useState<string>("");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const dispatch = useDispatch()
+	const isAuth = useSelector(state => state.auth.isAuth)
+	
+	if (isAuth) {
+		return <Navigate to="/" />
+	}
+
 	return (
 		<div className={s.login}>
 			<div className={s.block}>
@@ -29,7 +36,7 @@ export const Login = () => {
 				<div className={s.actions}>
 					<Button
 						className={s.btn}
-						onClick={() => login(email, password)}
+						onClick={() => dispatch(login({email, password}))}
 					>
 						Войти
 					</Button>

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { CreateContactProps } from "./CreateContact.props";
 import s from "./CreateContact.module.scss";
-import { createContact } from "../../api/api";
-
 export const CreateContact = ({
 	className,
 	...props
@@ -23,7 +21,7 @@ export const CreateContact = ({
 				onChange={(e) => setNubmerPhone(e.target.value)}
 				value={numberPhone}
 			/>
-			<button onClick={() => createContact(name, numberPhone)}>
+			<button>
 				Создать
 			</button>
 		</div>

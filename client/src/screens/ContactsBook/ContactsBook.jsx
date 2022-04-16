@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import { ContactCard } from "../../components/ContactCard/ContactCard";
 import { CreateContact } from "../../components/CreateContact/CreateContact";
 import { SearchContact } from "../../components/SearchContact/SearchContact";
@@ -11,6 +13,10 @@ const contacts = [
 ];
 
 export const ContactsBook = () => {
+	const isAuth = useSelector(state => state.auth.isAuth)
+	if (!isAuth) {
+		return <Navigate to="/login" />
+	}
 	return (
 		<div>
 			<CreateContact />
