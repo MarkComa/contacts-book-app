@@ -1,8 +1,11 @@
 import React from "react";
 import { ContactCardProps } from "./ContactCard.props";
 import s from "./ContactCard.module.scss";
+import { removeContact } from "../../redux/reducers/contactsReducer";
+import { useDispatch } from "react-redux";
 
-export const ContactCard = ({ contact }: ContactCardProps): JSX.Element => {
+export const ContactCard = ({ contact }/*: ContactCardProps*/)/*: JSX.Element*/ => {
+	const dispatch = useDispatch()
 	return (
 		<div className={s.contactCard}>
 			<div>
@@ -14,7 +17,7 @@ export const ContactCard = ({ contact }: ContactCardProps): JSX.Element => {
 					{contact.phoneNumber}
 				</a>
 			</div>
-			<button className={s.btn}>Удалить</button>
+			<button className={s.btn} onClick={()=>{dispatch(removeContact(contact._id))}}>Удалить</button>
 		</div>
 	);
 };

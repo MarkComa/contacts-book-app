@@ -5,7 +5,7 @@ export interface ContactCardProps
 	contact: contact;
 }
 export type contact = {
-	id: string;
+	_id: string;
 	name: string;
 	phoneNumber: string;
 };

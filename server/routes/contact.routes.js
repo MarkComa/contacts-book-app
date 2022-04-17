@@ -7,7 +7,9 @@ router.get("/contacts", async (req, res) => {
 	try {
 		const { userId } = req.query;
 		const contacts = await Contacts.find({ owner: userId });
-		res.json(contacts);
+		return res.json({
+			contacts: contacts,
+		});
 	} catch (e) {
 		console.log(e);
 	}
@@ -19,26 +21,28 @@ router.post("/contacts", async (req, res) => {
 		const { name, phoneNumber, userId } = req.body;
 
 		const contact = new Contacts({ owner: userId, name, phoneNumber });
+
 		await contact.save();
-		res.json(contact);
+		
+		return res.json(contact)
 	} catch (error) {
 		console.log(error);
 	}
 });
 
 //DELETE
-router.delete("/contacts/:id", async (req, res) => {
+router.delete("/contacts", async (req, res) => {
 	try {
-		const contact = await Contacts.findOneAndDellete({
-			_id: req.params.id,
+		const { id } = req.query;
+		const contact = await Contacts.findOneAndDelete({
+			_id: id,
 		});
-		res.json(contact);
+		res.status(200).json({ id: id, message: "Контакт был удален" });
 	} catch (error) {
 		console.log(error);
 	}
 
-	CONTACTS = CONTACTS.filter((c) => c.id !== req.params.id);
-	res.status(200).json({ message: "Контакт был удален" });
+	
 });
 
 module.exports = router;

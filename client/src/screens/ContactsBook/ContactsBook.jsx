@@ -1,29 +1,32 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { ContactCard } from "../../components/ContactCard/ContactCard";
 import { CreateContact } from "../../components/CreateContact/CreateContact";
 import { SearchContact } from "../../components/SearchContact/SearchContact";
+import { getContacts } from "../../redux/reducers/contactsReducer";
 import s from "./ContactsBook.module.scss";
 
-const contacts = [
-	{ id: "1", name: "Александр", phoneNumber: "89960890043" },
-	{ id: "2", name: "Алексей", phoneNumber: "89211100043" },
-	{ id: "3", name: "Андрей", phoneNumber: "893260090043" },
-];
-
 export const ContactsBook = () => {
-	const isAuth = useSelector(state => state.auth.isAuth)
+	const isAuth = useSelector((state) => state.auth.isAuth);
+	const userId = useSelector((state) => state.auth.user.id);
+	const contacts = useSelector((state) => state.contacts.contacts);
+	const dispatch = useDispatch()
+	
+	useEffect(()=>{
+		dispatch(getContacts(userId))
+	},[dispatch])
+
 	if (!isAuth) {
-		return <Navigate to="/login" />
+		return <Navigate to='/login' />;
 	}
 	return (
 		<div>
 			<CreateContact />
 			<SearchContact />
 			<div className={s.cards}>
-				{contacts.map((el) => (
-					<ContactCard key={el.id} contact={el} />
+				{contacts.map((el, index) => (
+					<ContactCard key={index} contact={el} />
 				))}
 			</div>
 		</div>

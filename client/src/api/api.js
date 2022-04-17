@@ -19,17 +19,16 @@ export const authAPI = {
 };
 export const contactsAPI = {
 	getContacts(userId) {
-		ins.get("/contscts", {
-			params: { userId },
-		});
+		return ins.get(`/contacts?userId=${userId}`);
 	},
-	createContact(name, numberPhone) {
-		ins.post("/contatcs", {
+	createContact(name, phoneNumber,userId) {
+		return ins.post("/contacts", {
 			name,
-			numberPhone,
+			phoneNumber,
+			userId
 		});
 	},
-	removeContacts(id) {
-		ins.delete(`/contacts:${id}`);
+	removeContact(id) {
+		return ins.delete(`/contacts?id=${id}`);
 	},
 };
