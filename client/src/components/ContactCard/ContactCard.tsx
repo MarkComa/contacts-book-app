@@ -2,10 +2,10 @@ import React from "react";
 import { ContactCardProps } from "./ContactCard.props";
 import s from "./ContactCard.module.scss";
 import { removeContact } from "../../redux/reducers/contactsReducer";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../hooks/hooks";
 
-export const ContactCard = ({ contact }/*: ContactCardProps*/)/*: JSX.Element*/ => {
-	const dispatch = useDispatch()
+export const ContactCard = ({ contact }: ContactCardProps): JSX.Element => {
+	const dispatch = useAppDispatch()
 	return (
 		<div className={s.contactCard}>
 			<div>
