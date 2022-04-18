@@ -24,7 +24,7 @@ const initialState: authState = {
 export const login = createAsyncThunk<
 	void,
 	authUserType,
-	{ dispatch: AppDispatch; state: authState; extra: any }
+	{ dispatch: AppDispatch }
 >(
 	"auth/login",
 	async function ({ email, password }, { rejectWithValue, dispatch }) {
@@ -63,11 +63,12 @@ const authSlice = createSlice({
 			state.isFetching = true;
 		});
 		builder.addCase(registration.fulfilled, (state, action) => {
-			state.isFetching = false,
+			state.isFetching = false;
 			state.resultRes = action.payload;
 		});
 		builder.addCase(registration.rejected, (state, action) => {
-			(state.isFetching = false), (state.resultRes = action.payload);
+			state.isFetching = false;
+			state.resultRes = action.payload;
 		});
 	},
 });

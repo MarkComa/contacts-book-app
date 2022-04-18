@@ -10,8 +10,7 @@ export const Registration = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const dispatch = useAppDispatch();
-	const compliteMessage = useAppSelector((state) => state.auth.message);
-	console.log(compliteMessage);
+	const compliteMessage = useAppSelector((state) => state.auth.resultRes?.message);
 	if (!!compliteMessage) {
 		return <Navigate to="/login" />;
 	}

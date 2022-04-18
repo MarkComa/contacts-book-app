@@ -22,7 +22,7 @@ export const ContactsBook = () => {
 	}
 	return (
 		<div>
-			<CreateContact />
+			{userId && <CreateContact />}
 			<SearchContact />
 			<div className={s.cards}>
 				{contacts.map((el, index) => (

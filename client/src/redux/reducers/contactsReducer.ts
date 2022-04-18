@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { contactsAPI } from "../../api/api";
-import { contactsType } from "../../types/type";
+import { contactsType, reqContactsType } from "../../types/type";
 
 export interface contactsState {
 	contacts: contactsType[];
@@ -19,7 +19,7 @@ export const getContacts = createAsyncThunk(
 );
 export const createContact = createAsyncThunk(
 	"contacts/createContact",
-	async function ({ name, phoneNumber, owner }: contactsType) {
+	async function ({ name, phoneNumber, owner }: reqContactsType) {
 		try {
 			const res = await contactsAPI.createContact(
 				name,
