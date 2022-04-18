@@ -1,33 +1,47 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { AppDispatch } from "./../store";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { authAPI } from "../../api/api";
+import { authUserType, userType } from "../../types/type";
 
-const initialState = {
+export interface authState {
+	isAuth: boolean;
+	user: userType | undefined;
+	isFetching: boolean;
+	message: string;
+	error: string | null;
+}
+
+const initialState: authState = {
 	isAuth: false,
-	user: {},
+	user: undefined,
 	isFetching: false,
 	message: "",
 	error: null,
 };
 
-export const login = createAsyncThunk(
+export const login = createAsyncThunk<
+	void,
+	authUserType,
+	{ dispatch: AppDispatch; state: authState; extra: any }
+>(
 	"auth/login",
 	async function ({ email, password }, { rejectWithValue, dispatch }) {
 		try {
 			const response = await authAPI.login(email, password);
 			dispatch(setUser(response.data.user));
 			localStorage.setItem("token", response.data.token);
-		} catch (error) {
+		} catch (error: any) {
 			return rejectWithValue(error.message);
 		}
 	},
 );
 export const registration = createAsyncThunk(
 	"auth/registration",
-	async function ({ email, password }, { rejectWithValue }) {
+	async function ({ email, password }: authUserType, { rejectWithValue }) {
 		try {
 			const response = await authAPI.registration(email, password);
 			return response.data;
-		} catch (error) {
+		} catch (error: any) {
 			return rejectWithValue(error.message);
 		}
 	},
@@ -37,19 +51,25 @@ const authSlice = createSlice({
 	name: "auth",
 	initialState,
 	reducers: {
-		setUser(state, action) {
+		setUser(state, action: PayloadAction<userType>) {
 			state.user = action.payload;
 			state.isAuth = true;
 		},
 	},
-	extraRedusers: {
-		[registration.pending]: (state) => {
+	extraReducers: {
+		[registration.pending]: (state: authState) => {
 			state.isFetching = true;
 		},
-		[registration.fulfilled]: (state, action) => {
+		[registration.fulfilled]: (
+			state: authState,
+			action: PayloadAction<string>,
+		) => {
 			state.message = action.payload.message;
 		},
-		[registration.rejected]: (state, action) => {
+		[registration.rejected]: (
+			state: authState,
+			action: PayloadAction<string>,
+		) => {
 			state.error = action.payload;
 		},
 	},

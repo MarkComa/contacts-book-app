@@ -4,13 +4,13 @@ const ins = axios.create({
 });
 
 export const authAPI = {
-	login(email, password) {
+	login(email: string, password: string) {
 		return ins.post("/auth/login", {
 			email,
 			password,
 		});
 	},
-	registration(email, password) {
+	registration(email: string, password: string) {
 		return ins.post("/auth/registration", {
 			email,
 			password,
@@ -18,17 +18,17 @@ export const authAPI = {
 	},
 };
 export const contactsAPI = {
-	getContacts(userId) {
+	getContacts(userId: string) {
 		return ins.get(`/contacts?userId=${userId}`);
 	},
-	createContact(name, phoneNumber,userId) {
+	createContact(name: string, phoneNumber: string, userId: string) {
 		return ins.post("/contacts", {
 			name,
 			phoneNumber,
-			userId
+			userId,
 		});
 	},
-	removeContact(id) {
+	removeContact(id: string) {
 		return ins.delete(`/contacts?id=${id}`);
 	},
 };

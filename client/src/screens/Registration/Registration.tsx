@@ -4,16 +4,16 @@ import { Input } from "../../components/Input/Input";
 import s from "./Registration.module.css";
 import { Navigate, NavLink } from "react-router-dom";
 import { registration } from "../../redux/reducers/authReducer";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 export const Registration = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const dispatch = useDispatch()
-	const compliteMessage = useSelector(state => state.auth.message)
-	console.log(compliteMessage)
+	const dispatch = useAppDispatch();
+	const compliteMessage = useAppSelector((state) => state.auth.message);
+	console.log(compliteMessage);
 	if (!!compliteMessage) {
-		return <Navigate to="/login"/>
+		return <Navigate to="/login" />;
 	}
 	return (
 		<div className={s.registration}>
@@ -36,7 +36,9 @@ export const Registration = () => {
 				<div className={s.actions}>
 					<Button
 						className={s.btn}
-						onClick={() => dispatch(registration({email, password}))}
+						onClick={() =>
+							dispatch(registration({ email, password }))
+						}
 					>
 						Зарегистрироваться
 					</Button>

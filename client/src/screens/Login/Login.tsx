@@ -1,18 +1,18 @@
-import React, { useState } from "react";	
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
 import { Navigate, NavLink } from "react-router-dom";
 import { Button } from "../../components/Button/Button";
 import { Input } from "../../components/Input/Input";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { login } from "../../redux/reducers/authReducer";
 import s from "./Login.module.css";
 export const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const dispatch = useDispatch()
-	const isAuth = useSelector(state => state.auth.isAuth)
-	
+	const dispatch = useAppDispatch();
+	const isAuth = useAppSelector((state) => state.auth.isAuth);
+
 	if (isAuth) {
-		return <Navigate to="/" />
+		return <Navigate to="/" />;
 	}
 
 	return (
@@ -36,7 +36,7 @@ export const Login = () => {
 				<div className={s.actions}>
 					<Button
 						className={s.btn}
-						onClick={() => dispatch(login({email, password}))}
+						onClick={() => dispatch(login({ email, password }))}
 					>
 						Войти
 					</Button>
