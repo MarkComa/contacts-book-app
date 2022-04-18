@@ -53,22 +53,16 @@ const contactsSlise = createSlice({
 			state.contacts = action.payload.contacts;
 		},
 	},
-	extraReducers: {
-		[createContact.fulfilled]: (
-			state: contactsState,
-			action: PayloadAction<contactsType>,
-		) => {
+	extraReducers: (builder) => {
+		builder.addCase(createContact.fulfilled, (state, action) => {
 			state.contacts.push(action.payload);
-		},
-		[removeContact.fulfilled]: (
-			state: contactsState,
-			action: PayloadAction<any>,
-		) => {
+		});
+		builder.addCase(removeContact.fulfilled, (state, action) => {
 			const contacts = state.contacts.filter(
 				(el: contactsType) => el._id !== action.payload.id,
 			);
 			state.contacts = contacts;
-		},
+		});
 	},
 });
 export const { setContacts } = contactsSlise.actions;

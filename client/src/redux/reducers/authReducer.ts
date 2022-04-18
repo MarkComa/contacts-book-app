@@ -1,26 +1,30 @@
 import { AppDispatch } from "./../store";
-import { createSlice, createAsyncThunk, PayloadAction, ReducersMapObject } from "@reduxjs/toolkit";
+import {
+	createSlice,
+	createAsyncThunk,
+	PayloadAction,
+} from "@reduxjs/toolkit";
 import { authAPI } from "../../api/api";
-import { authUserType, userType } from "../../types/type";
+import { authUserType, userType,resultResType } from "../../types/type";
 
 export interface authState {
 	isAuth: boolean;
-	user: userType | undefined;
+	user?: userType;
 	isFetching: boolean;
-	error: ReducersMapObject;
+	resultRes?: resultResType;
 }
 
 const initialState: authState = {
 	isAuth: false,
 	user: undefined,
 	isFetching: false,
-	error: null,
-};
+	resultRes: undefined
+}
 
 export const login = createAsyncThunk<
 	void,
 	authUserType,
-	{ dispatch: AppDispatch; state: authState; extra: any; }
+	{ dispatch: AppDispatch; state: authState; extra: any }
 >(
 	"auth/login",
 	async function ({ email, password }, { rejectWithValue, dispatch }) {
@@ -28,14 +32,14 @@ export const login = createAsyncThunk<
 			const response = await authAPI.login(email, password);
 			dispatch(setUser(response.data.user));
 			localStorage.setItem("token", response.data.token);
-		} catch (error) {
-			return rejectWithValue(error.message);
+		} catch (error: any) {
+			return rejectWithValue(error);
 		}
 	},
 );
-export const registration = createAsyncThunk(
+export const registration = createAsyncThunk<resultResType, authUserType, {rejectValue: resultResType} >(
 	"auth/registration",
-	async function ({ email, password }: authUserType, { rejectWithValue }) {
+	async function ({ email, password }: authUserType, { rejectWithValue}) {
 		try {
 			const response = await authAPI.registration(email, password);
 			return response.data;
@@ -54,22 +58,17 @@ const authSlice = createSlice({
 			state.isAuth = true;
 		},
 	},
-	extraReducers: {
-		[registration.pending]: (state: authState) => {
+	extraReducers: (builder) => {
+		builder.addCase(registration.pending, (state) => {
 			state.isFetching = true;
-		},
-		[registration.fulfilled]: (
-			state: authState,
-			action: PayloadAction<string>,
-		) => {
-			state.error.message = action.payload.message;
-		},
-		[registration.rejected]: (
-			state: authState,
-			action: PayloadAction<string>,
-		) => {
-			state.error = action.payload;
-		},
+		});
+		builder.addCase(registration.fulfilled, (state, action) => {
+			state.isFetching = false,
+			state.resultRes = action.payload;
+		});
+		builder.addCase(registration.rejected, (state, action) => {
+			(state.isFetching = false), (state.resultRes = action.payload);
+		});
 	},
 });
 

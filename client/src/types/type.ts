@@ -14,3 +14,6 @@ export type authUserType = {
 	email: string;
 	password: string;
 };
+export type resultResType = {
+	message: string
+}
