@@ -4,22 +4,24 @@ import { contactsType, reqContactsType } from "../../types/type";
 
 export interface contactsState {
 	contacts: contactsType[];
+	isFetching: boolean;
 }
 
 const initialState: contactsState = {
 	contacts: [],
+	isFetching: false,
 };
 
 export const getContacts = createAsyncThunk(
 	"contacts/getContacts",
-	async function (userId: string, { dispatch }) {
+	async function (userId: string, thunkAPI) {
 		const response = await contactsAPI.getContacts(userId);
-		dispatch(setContacts(response.data));
+		thunkAPI.dispatch(setContacts(response.data));
 	},
 );
 export const createContact = createAsyncThunk(
 	"contacts/createContact",
-	async function ({ name, phoneNumber, owner }: reqContactsType) {
+	async function ({ name, phoneNumber, owner }: reqContactsType, thunkAPI) {
 		try {
 			const res = await contactsAPI.createContact(
 				name,
@@ -27,20 +29,20 @@ export const createContact = createAsyncThunk(
 				owner,
 			);
 			return res.data;
-		} catch (error: any) {
-			alert(error.message);
+		} catch (error) {
+			thunkAPI.rejectWithValue(error);
 		}
 	},
 );
 
 export const removeContact = createAsyncThunk(
 	"contacts/removeContact",
-	async function (id: string) {
+	async function (id: string, thunkAPI) {
 		try {
 			const res = await contactsAPI.removeContact(id);
 			return res.data;
 		} catch (error: any) {
-			alert(error.message);
+			thunkAPI.rejectWithValue(error.message);
 		}
 	},
 );
