@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "../../components/Button/Button";
 import { Input } from "../../components/Input/Input";
-import s from "./Registration.module.css";
+import s from "./Registration.module.scss";
 import { Navigate, NavLink } from "react-router-dom";
 import { registration } from "../../redux/reducers/authReducer";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
@@ -10,10 +10,12 @@ export const Registration = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const dispatch = useAppDispatch();
-	const compliteMessage = useAppSelector((state) => state.auth.resultRes?.message);
-	if (!!compliteMessage) {
+	const isOk = useAppSelector(state => state.auth.isOk)
+
+	if (isOk) {
 		return <Navigate to="/login" />;
 	}
+
 	return (
 		<div className={s.registration}>
 			<div className={s.block}>

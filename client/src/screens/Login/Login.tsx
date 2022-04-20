@@ -4,7 +4,7 @@ import { Button } from "../../components/Button/Button";
 import { Input } from "../../components/Input/Input";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { login } from "../../redux/reducers/authReducer";
-import s from "./Login.module.css";
+import s from "./Login.module.scss";
 export const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
