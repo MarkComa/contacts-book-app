@@ -1,4 +1,3 @@
-import { AppDispatch } from "./../store";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { authAPI } from "../../api/api";
 import { authUserType, userType, resultResType } from "../../types/type";
@@ -8,6 +7,7 @@ export interface authState {
 	user?: userType;
 	isFetching: boolean;
 	resultRes?: resultResType;
+	isOk: boolean;
 }
 
 const initialState: authState = {
@@ -15,6 +15,7 @@ const initialState: authState = {
 	user: undefined,
 	isFetching: false,
 	resultRes: undefined,
+	isOk: false,
 };
 
 export const login = createAsyncThunk(
@@ -59,9 +60,11 @@ const authSlice = createSlice({
 		builder.addCase(registration.fulfilled, (state, action) => {
 			state.isFetching = false;
 			state.resultRes = action.payload;
+			state.isOk = true;
 		});
 		builder.addCase(registration.rejected, (state) => {
 			state.isFetching = false;
+			state.isOk = false;
 		});
 		builder.addCase(login.pending, (state) => {
 			state.isFetching = true;

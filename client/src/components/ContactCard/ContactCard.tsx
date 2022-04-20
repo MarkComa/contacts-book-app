@@ -3,7 +3,6 @@ import { ContactCardProps } from "./ContactCard.props";
 import s from "./ContactCard.module.scss";
 import { removeContact } from "../../redux/reducers/contactsReducer";
 import { useAppDispatch } from "../../hooks/hooks";
-import CloseIcon from "./close.svg";
 
 export const ContactCard = ({ contact }: ContactCardProps): JSX.Element => {
 	const dispatch = useAppDispatch();
