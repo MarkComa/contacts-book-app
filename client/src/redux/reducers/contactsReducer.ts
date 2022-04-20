@@ -21,11 +21,11 @@ export const getContacts = createAsyncThunk(
 );
 export const createContact = createAsyncThunk(
 	"contacts/createContact",
-	async function ({ name, phoneNumber, owner }: reqContactsType, thunkAPI) {
+	async function ({ data , owner }: reqContactsType, thunkAPI) {
 		try {
 			const res = await contactsAPI.createContact(
-				name,
-				phoneNumber,
+				data.name,
+				data.phoneNumber,
 				owner,
 			);
 			return res.data;

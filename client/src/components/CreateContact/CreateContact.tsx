@@ -1,38 +1,51 @@
-import React, { useState } from "react";
+import React from "react";
 import { CreateContactProps } from "./CreateContact.props";
 import s from "./CreateContact.module.scss";
 import { createContact } from "../../redux/reducers/contactsReducer";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { SubmitHandler, useForm } from "react-hook-form";
+
+export type InputsType = {
+	name: string,
+	phoneNumber: string;
+}
+
 export const CreateContact = ({
 	className,
 	...props
 }: CreateContactProps): JSX.Element => {
-	const [name, setName] = useState("");
-	const [phoneNumber, setPhoneNumber] = useState("");
 	const owner = useAppSelector((state) => state.auth.user?.id);
 	const dispatch = useAppDispatch();
+	
+	const defaultValues = {
+		name: '',
+		phoneNumber: ''
+	}
+	const {register, handleSubmit, reset} = useForm<InputsType>({defaultValues})
 	if (owner) {
+
+		const onSubmit:SubmitHandler<InputsType> = (data): void => {
+			dispatch(createContact({data, owner }))
+			console.log(data)
+			reset({ ...defaultValues })
+			console.log(data)
+		}
+
 		return (
 			<div className={s.createContact} {...props}>
-				<span>Введите Фамилию и Имя</span>
+			<form onSubmit={handleSubmit(onSubmit)}>
 				<input
+					{...register('name', {required:true})}
 					type="text"
-					onChange={(e) => setName(e.target.value)}
-					value={name}
+					placeholder='Введите Фамилию и Имя'
 				/>
-				<span>Введите номер телефона</span>
 				<input
-					type="text"
-					onChange={(e) => setPhoneNumber(e.target.value)}
-					value={phoneNumber}
+					{...register('phoneNumber', {required:true})}
+					type="number"
+					placeholder="Введите номер телефона"
 				/>
-				<button
-					onClick={() =>{
-						dispatch(createContact({ name, phoneNumber, owner }))}
-					}
-				>
-					Создать
-				</button>
+				<input type="submit" value={'Создать контакт'}/>
+			</form>
 			</div>
 		);
 	}

@@ -1,3 +1,5 @@
+import { InputsType } from '../components/CreateContact/CreateContact';
+
 export type userType = {
 	id: string;
 	email: string;
@@ -12,13 +14,12 @@ export type contactsType = {
 };
 export type reqContactsType = {
 	owner: string;
-	name: string;
-	phoneNumber: string;
+	data: InputsType
 };
 export type authUserType = {
 	email: string;
 	password: string;
 };
 export type resultResType = {
-	message: string
-}
+	message: string;
+};
