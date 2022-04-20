@@ -15,7 +15,7 @@ export const ContactsBook = () => {
 
 	useEffect(() => {
 		userId && dispatch(getContacts(userId));
-	}, [dispatch]);
+	}, [dispatch, userId]);
 
 	if (!isAuth) {
 		return <Navigate to="/login" />;
