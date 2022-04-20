@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { contactsAPI } from "../../api/api";
 import { contactsType, reqContactsType } from "../../types/type";
 

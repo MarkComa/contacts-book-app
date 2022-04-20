@@ -13,6 +13,22 @@
 	position: absolute;
 	top: 16px;
 	right: 16px;
+	margin: 0;
+	padding: 0;
+	background: transparent;
+	border-radius: 50%;
+	border: none;
+	width: 24px;
+	height: 24px;
+
+	& svg:hover {
+		& path {
+			fill: #fff;
+		}
+		& path:first-child {
+			fill: #f44336;
+		}
+	}
 }
 .name {
 	font-size: 20px;

@@ -21,7 +21,7 @@ export const ContactsBook = () => {
 		return <Navigate to="/login" />;
 	}
 	return (
-		<div>
+		<div className={s.contactBooks}>
 			{userId && <CreateContact />}
 			<SearchContact />
 			<div className={s.cards}>
