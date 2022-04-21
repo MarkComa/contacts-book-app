@@ -4,6 +4,13 @@ const ins = axios.create({
 });
 
 export const authAPI = {
+	auth() {
+		return ins.get("/auth/auth", {
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
+			},
+		});
+	},
 	login(email: string, password: string) {
 		return ins.post("/auth/login", {
 			email,

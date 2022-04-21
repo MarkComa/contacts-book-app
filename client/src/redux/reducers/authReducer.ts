@@ -17,6 +17,14 @@ const initialState: authState = {
 	resultRes: undefined,
 	isOk: false,
 };
+export const auth = createAsyncThunk("auth/auth", async function (_, thunkAPI) {
+	try {
+		const response = await authAPI.auth();
+		thunkAPI.dispatch(setUser(response.data.user));
+	} catch (error) {
+		localStorage.removeItem("token");
+	}
+});
 
 export const login = createAsyncThunk(
 	"auth/login",
@@ -25,7 +33,6 @@ export const login = createAsyncThunk(
 			const response = await authAPI.login(data.email, data.password);
 			thunkAPI.dispatch(setUser(response.data.user));
 			localStorage.setItem("token", response.data.token);
-			console.log(response);
 		} catch (e) {
 			return thunkAPI.rejectWithValue(e);
 		}
