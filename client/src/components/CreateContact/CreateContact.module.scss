@@ -9,7 +9,7 @@
 		border-radius: 8px;
 		margin-right: 16px;
 	}
-	& button {
+	& input:last-child {
 		background: #19208c;
 		border-radius: 8px;
 
@@ -22,4 +22,10 @@
 	& span {
 		margin-right: 8px;
 	}
+}
+
+input[type="number" i]::-webkit-inner-spin-button,
+input[type="number" i]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }
