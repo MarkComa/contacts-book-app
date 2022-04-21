@@ -21,7 +21,7 @@ export const getContacts = createAsyncThunk(
 );
 export const createContact = createAsyncThunk(
 	"contacts/createContact",
-	async function ({ data , owner }: reqContactsType, thunkAPI) {
+	async function ({ data, owner }: reqContactsType, thunkAPI) {
 		try {
 			const res = await contactsAPI.createContact(
 				data.name,

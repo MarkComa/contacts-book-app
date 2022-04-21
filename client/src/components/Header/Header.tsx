@@ -5,7 +5,6 @@ import s from "./Header.module.css";
 
 export const Header = (): JSX.Element => {
 	const email = useAppSelector((state) => state.auth.user?.email);
-	console.log(email);
 	const isAuth = useAppSelector((state) => state.auth.isAuth);
 	return (
 		<div className={s.header}>
