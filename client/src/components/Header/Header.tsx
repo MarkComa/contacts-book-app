@@ -5,13 +5,13 @@ import s from "./Header.module.css";
 
 export const Header = (): JSX.Element => {
 	const email = useAppSelector((state) => state.auth.user?.email);
-	const isAuth = useAppSelector((state) => state.auth.isAuth);
+	const token = localStorage.getItem("token");
 	return (
 		<div className={s.header}>
 			<Link to={"/"}>
 				<img src="" alt="logo" />
 			</Link>
-			{isAuth && (
+			{!!token && (
 				<div className={s.action}>
 					<span>{email}</span>
 					<span>Выйти</span>

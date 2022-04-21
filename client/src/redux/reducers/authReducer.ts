@@ -3,7 +3,6 @@ import { authAPI } from "../../api/api";
 import { authUserType, userType, resultResType } from "../../types/type";
 
 export interface authState {
-	isAuth: boolean;
 	user?: userType;
 	isFetching: boolean;
 	resultRes?: resultResType;
@@ -11,7 +10,6 @@ export interface authState {
 }
 
 const initialState: authState = {
-	isAuth: false,
 	user: undefined,
 	isFetching: false,
 	resultRes: undefined,
@@ -61,7 +59,6 @@ const authSlice = createSlice({
 	reducers: {
 		setUser(state, action: PayloadAction<userType>) {
 			state.user = action.payload;
-			state.isAuth = true;
 		},
 	},
 	extraReducers: (builder) => {

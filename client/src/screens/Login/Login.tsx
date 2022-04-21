@@ -8,10 +8,10 @@ import { LoginInput } from "../../types/type";
 
 export const Login = () => {
 	const dispatch = useAppDispatch();
-	const isAuth = useAppSelector((state) => state.auth.isAuth);
+	const token = localStorage.getItem("token");
 	const { register, handleSubmit } = useForm<LoginInput>();
 
-	if (isAuth) {
+	if (!!token) {
 		return <Navigate to="/" />;
 	}
 
