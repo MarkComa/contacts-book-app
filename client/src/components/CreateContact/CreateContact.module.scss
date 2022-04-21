@@ -3,27 +3,33 @@
 	padding: 8px;
 	background: #fff;
 	border-radius: 8px;
+	& span {
+		margin-right: 8px;
+	}
+}
+.form {
+	display: grid;
+	grid-template-columns: 1fr 1fr 200px;
+	gap: 16px;
+}
+.block__input {
 	& input {
+		width: 100%;
 		font-size: 16px;
 		border: 2px solid #19208c;
 		border-radius: 8px;
 		margin-right: 16px;
 	}
-	& input:last-child {
-		background: #19208c;
-		border-radius: 8px;
-
-		color: #fff;
-		cursor: pointer;
-		&:hover {
-			background: lighten(#19208c, 15%);
-		}
-	}
-	& span {
-		margin-right: 8px;
+}
+.submit {
+	background: #19208c;
+	border-radius: 8px;
+	color: #fff;
+	cursor: pointer;
+	&:hover {
+		background: lighten(#19208c, 15%);
 	}
 }
-
 input[type="number" i]::-webkit-inner-spin-button,
 input[type="number" i]::-webkit-outer-spin-button {
 	-webkit-appearance: none;
