@@ -30,9 +30,7 @@ export const CreateContact = ({
 	if (owner) {
 		const onSubmit: SubmitHandler<InputsType> = (data): void => {
 			dispatch(createContact({ data, owner }));
-			console.log(data);
 			reset({ ...defaultValues });
-			console.log(data);
 		};
 
 		return (

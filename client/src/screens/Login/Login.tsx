@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, NavLink } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch } from "../../hooks/hooks";
 import { login } from "../../redux/reducers/authReducer";
 import s from "./Login.module.scss";
 import { useForm, SubmitHandler } from "react-hook-form";

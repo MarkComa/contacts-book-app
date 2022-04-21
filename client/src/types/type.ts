@@ -27,3 +27,14 @@ export type LoginInput = {
 	password: string;
 	email: string;
 };
+
+export type reqEditContactType = {
+	data: contactType;
+	id: string;
+	owner:string
+}
+
+export type contactType = {
+	name: string;
+	phoneNumber: string;
+}

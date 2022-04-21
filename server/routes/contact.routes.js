@@ -18,12 +18,24 @@ router.get("/contacts", async (req, res) => {
 //POST
 router.post("/contacts", async (req, res) => {
 	try {
-		const { name, phoneNumber, userId } = req.body;
+		const { name, phoneNumber, owner } = req.body;
 
-		const contact = new Contacts({ owner: userId, name, phoneNumber });
+		const contact = new Contacts({ owner, name, phoneNumber });
 
 		await contact.save();
-		
+
+		return res.json(contact);
+	} catch (error) {
+		console.log(error);
+	}
+});
+router.post("/contacts/edit", async (req, res) => {
+	try {
+		const { id, name, phoneNumber, owner } = req.body;
+		const contact = await Contacts.findOneAndUpdate(
+			{ _id: id, owner: owner },
+			{ name: name, phoneNumber: phoneNumber },
+		);
 		return res.json(contact)
 	} catch (error) {
 		console.log(error);
@@ -41,8 +53,6 @@ router.delete("/contacts", async (req, res) => {
 	} catch (error) {
 		console.log(error);
 	}
-
-	
 });
 
 module.exports = router;

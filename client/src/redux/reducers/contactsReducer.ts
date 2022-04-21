@@ -1,6 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { contactsAPI } from "../../api/api";
-import { contactsType, reqContactsType } from "../../types/type";
+import {
+	contactsType,
+	reqContactsType,
+	reqEditContactType,
+} from "../../types/type";
 
 export interface contactsState {
 	contacts: contactsType[];
@@ -35,6 +39,23 @@ export const createContact = createAsyncThunk(
 	},
 );
 
+export const editContact = createAsyncThunk(
+	"contacts/editContact",
+	async function ({ id, data, owner }: reqEditContactType, thunkAPI) {
+		try {
+			const res = await contactsAPI.editContact(
+				id,
+				data.name,
+				data.phoneNumber,
+				owner,
+			);
+			thunkAPI.dispatch(updateContact(res.data))
+		} catch (error) {
+			thunkAPI.rejectWithValue(error);
+		}
+	},
+);
+
 export const removeContact = createAsyncThunk(
 	"contacts/removeContact",
 	async function (id: string, thunkAPI) {
@@ -54,11 +75,23 @@ const contactsSlise = createSlice({
 		setContacts(state, action) {
 			state.contacts = action.payload.contacts;
 		},
+		updateContact(state, action){
+			state.contacts.map(el => {
+				if (el._id === action.payload._id){
+					console.log(action.payload)
+					el = action.payload
+					console.log('1' + ' ' + el.name)
+				}
+			},
+			state.contacts.map(el => console.log(el.name))
+			);
+		}
 	},
 	extraReducers: (builder) => {
 		builder.addCase(createContact.fulfilled, (state, action) => {
 			state.contacts.push(action.payload);
 		});
+
 		builder.addCase(removeContact.fulfilled, (state, action) => {
 			const contacts = state.contacts.filter(
 				(el: contactsType) => el._id !== action.payload.id,
@@ -67,5 +100,5 @@ const contactsSlise = createSlice({
 		});
 	},
 });
-export const { setContacts } = contactsSlise.actions;
+export const { setContacts, updateContact } = contactsSlise.actions;
 export default contactsSlise.reducer;

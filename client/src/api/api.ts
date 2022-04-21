@@ -28,11 +28,19 @@ export const contactsAPI = {
 	getContacts(userId: string) {
 		return ins.get(`/contacts?userId=${userId}`);
 	},
-	createContact(name: string, phoneNumber: string, userId: string) {
+	createContact(name: string, phoneNumber: string, owner: string) {
 		return ins.post("/contacts", {
 			name,
 			phoneNumber,
-			userId,
+			owner,
+		});
+	},
+	editContact(id: string, name:string, phoneNumber:string, owner: string) {
+		return ins.post("/contacts/edit", {
+			id,
+			name,
+			phoneNumber,
+			owner,
 		});
 	},
 	removeContact(id: string) {
