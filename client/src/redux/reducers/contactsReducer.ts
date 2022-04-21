@@ -49,7 +49,7 @@ export const editContact = createAsyncThunk(
 				data.phoneNumber,
 				owner,
 			);
-			thunkAPI.dispatch(updateContact(res.data))
+			return res.data
 		} catch (error) {
 			thunkAPI.rejectWithValue(error);
 		}
@@ -75,17 +75,13 @@ const contactsSlise = createSlice({
 		setContacts(state, action) {
 			state.contacts = action.payload.contacts;
 		},
-		updateContact(state, action){
-			state.contacts.map(el => {
-				if (el._id === action.payload._id){
-					console.log(action.payload)
-					el = action.payload
-					console.log('1' + ' ' + el.name)
+		updateContact(state, action) {
+			state.contacts.map((el) => {
+				if (el._id === action.payload._id) {
+					el = action.payload;
 				}
-			},
-			state.contacts.map(el => console.log(el.name))
-			);
-		}
+			});
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(createContact.fulfilled, (state, action) => {

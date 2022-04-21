@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ContactCardProps } from "./ContactCard.props";
 import s from "./ContactCard.module.scss";
-import { editContact, removeContact } from "../../redux/reducers/contactsReducer";
+import { editContact, getContacts, removeContact } from "../../redux/reducers/contactsReducer";
 import { useAppDispatch } from "../../hooks/hooks";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { contactType } from "../../types/type";
@@ -12,11 +12,17 @@ export const ContactCard = ({ contact }: ContactCardProps): JSX.Element => {
 	const {register, handleSubmit} = useForm<contactType>()
 	const id = contact?._id
 	const owner = contact?.owner
+	
+	
 
 	const onSubmit: SubmitHandler<contactType> = (data) => {
 		dispatch(editContact({id, data, owner}));
 		setEditMode(false)
 	}
+
+	useEffect(() => {
+		owner && dispatch(getContacts(owner));
+	}, [editMode]);
 
 	return (
 		<div className={s.contactCard}>

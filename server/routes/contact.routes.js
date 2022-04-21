@@ -34,9 +34,11 @@ router.post("/contacts/edit", async (req, res) => {
 		const { id, name, phoneNumber, owner } = req.body;
 		const contact = await Contacts.findOneAndUpdate(
 			{ _id: id, owner: owner },
-			{ name: name, phoneNumber: phoneNumber },
+			{ $set : {name: name, phoneNumber: phoneNumber }}, {
+				returnDocument: 'after'
+			}
 		);
-		return res.json(contact)
+		return res.status(200).json({ owner: owner, id: id, message: "Контакт был обновлен" });
 	} catch (error) {
 		console.log(error);
 	}
