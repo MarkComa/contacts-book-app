@@ -1,15 +1,23 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import s from './Header.module.css'
+import React from "react";
+import { Link } from "react-router-dom";
+import { useAppSelector } from "../../hooks/hooks";
+import s from "./Header.module.css";
 
-export const Header = ():JSX.Element => {
-  return (
-    <div className={s.header}>
-        <Link to={'/'}><img src="" alt="logo" /></Link>
-        <div className={s.action}>
-            <span>Логин</span>
-            <span>Выйти</span>
-        </div>
-    </div>
-  )
-}
+export const Header = (): JSX.Element => {
+	const email = useAppSelector((state) => state.auth.user?.email);
+	console.log(email);
+	const isAuth = useAppSelector((state) => state.auth.isAuth);
+	return (
+		<div className={s.header}>
+			<Link to={"/"}>
+				<img src="" alt="logo" />
+			</Link>
+			{isAuth && (
+				<div className={s.action}>
+					<span>{email}</span>
+					<span>Выйти</span>
+				</div>
+			)}
+		</div>
+	);
+};

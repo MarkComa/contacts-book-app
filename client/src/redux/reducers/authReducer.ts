@@ -20,21 +20,25 @@ const initialState: authState = {
 
 export const login = createAsyncThunk(
 	"auth/login",
-	async function ({ email, password }: authUserType, thunkAPI) {
+	async function ({ data }: authUserType, thunkAPI) {
 		try {
-			const response = await authAPI.login(email, password);
+			const response = await authAPI.login(data.email, data.password);
 			thunkAPI.dispatch(setUser(response.data.user));
 			localStorage.setItem("token", response.data.token);
-		} catch (error: any) {
-			return thunkAPI.rejectWithValue(error);
+			console.log(response);
+		} catch (e) {
+			return thunkAPI.rejectWithValue(e);
 		}
 	},
 );
 export const registration = createAsyncThunk(
 	"auth/registration",
-	async function ({ email, password }: authUserType, thunkAPI) {
+	async function ({ data }: authUserType, thunkAPI) {
 		try {
-			const response = await authAPI.registration(email, password);
+			const response = await authAPI.registration(
+				data.email,
+				data.password,
+			);
 			return response.data;
 		} catch (e) {
 			return thunkAPI.rejectWithValue(
@@ -65,15 +69,6 @@ const authSlice = createSlice({
 		builder.addCase(registration.rejected, (state) => {
 			state.isFetching = false;
 			state.isOk = false;
-		});
-		builder.addCase(login.pending, (state) => {
-			state.isFetching = true;
-		});
-		builder.addCase(login.fulfilled, (state) => {
-			state.isFetching = false;
-		});
-		builder.addCase(login.rejected, (state) => {
-			state.isFetching = false;
 		});
 	},
 });

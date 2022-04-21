@@ -1,16 +1,19 @@
-import React, { useState } from "react";
-import { Button } from "../../components/Button/Button";
-import { Input } from "../../components/Input/Input";
+import React from "react";
 import s from "./Registration.module.scss";
 import { Navigate, NavLink } from "react-router-dom";
 import { registration } from "../../redux/reducers/authReducer";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { LoginInput } from "../../types/type";
 
 export const Registration = () => {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
 	const dispatch = useAppDispatch();
-	const isOk = useAppSelector(state => state.auth.isOk)
+	const isOk = useAppSelector((state) => state.auth.isOk);
+	const { register, handleSubmit } = useForm<LoginInput>();
+
+	const onSubmit: SubmitHandler<LoginInput> = (data) => {
+		dispatch(registration({ data }));
+	};
 
 	if (isOk) {
 		return <Navigate to="/login" />;
@@ -18,36 +21,31 @@ export const Registration = () => {
 
 	return (
 		<div className={s.registration}>
-			<div className={s.block}>
+			<form className={s.block} onSubmit={handleSubmit(onSubmit)}>
 				<p className={s.title}>Регистрация</p>
-				<Input
+				<input
+					{...register("email", { required: true })}
 					type={"email"}
 					placeholder="Введите почту..."
 					className={s.input}
-					value={email}
-					setValue={setEmail}
 				/>
-				<Input
+				<input
+					{...register("password", { required: true })}
 					type={"password"}
 					placeholder="Введите пароль..."
 					className={s.input}
-					value={password}
-					setValue={setPassword}
 				/>
 				<div className={s.actions}>
-					<Button
+					<input
 						className={s.btn}
-						onClick={() =>
-							dispatch(registration({ email, password }))
-						}
-					>
-						Зарегистрироваться
-					</Button>
+						type="submit"
+						value="Зарегистрироваться"
+					/>
 					<NavLink to={"/login"}>
-						<Button className={s.btn}>Войти</Button>
+						<button className={s.btn}>Войти</button>
 					</NavLink>
 				</div>
-			</div>
+			</form>
 		</div>
 	);
 };

@@ -1,50 +1,47 @@
-import React, { useState } from "react";
+import React from "react";
 import { Navigate, NavLink } from "react-router-dom";
-import { Button } from "../../components/Button/Button";
-import { Input } from "../../components/Input/Input";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { login } from "../../redux/reducers/authReducer";
 import s from "./Login.module.scss";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { LoginInput } from "../../types/type";
+
 export const Login = () => {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
 	const dispatch = useAppDispatch();
 	const isAuth = useAppSelector((state) => state.auth.isAuth);
+	const { register, handleSubmit } = useForm<LoginInput>();
 
 	if (isAuth) {
 		return <Navigate to="/" />;
 	}
 
+	const onSubmit: SubmitHandler<LoginInput> = (data) => {
+		dispatch(login({ data }));
+	};
+
 	return (
 		<div className={s.login}>
-			<div className={s.block}>
+			<form className={s.block} onSubmit={handleSubmit(onSubmit)}>
 				<p className={s.title}>Логин</p>
-				<Input
+				<input
+					{...register("email", { required: true })}
 					type={"email"}
 					placeholder="Введите почту..."
 					className={s.input}
-					value={email}
-					setValue={setEmail}
 				/>
-				<Input
+				<input
+					{...register("password", { required: true })}
 					type={"password"}
 					placeholder="Введите пароль..."
 					className={s.input}
-					value={password}
-					setValue={setPassword}
 				/>
 				<div className={s.actions}>
-					<Button
-						className={s.btn}
-						onClick={() => dispatch(login({ email, password }))}
-					>
-						Войти
-					</Button>
+					<input className={s.btn} type="submit" value="Войти" />
 					<NavLink to={"/registration"}>
-						<Button className={s.btn}>Зарегистрироваться</Button>
+						<button className={s.btn}>Зарегистрироваться</button>
 					</NavLink>
 				</div>
-			</div>
+			</form>
 		</div>
 	);
 };
