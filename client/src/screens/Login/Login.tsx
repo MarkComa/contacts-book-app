@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, NavLink } from "react-router-dom";
-import { useAppDispatch } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { login } from "../../redux/reducers/authReducer";
 import s from "./Login.module.scss";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -8,16 +8,17 @@ import { LoginInput } from "../../types/type";
 
 export const Login = () => {
 	const dispatch = useAppDispatch();
-	const token = localStorage.getItem("token");
+	const isAuth = useAppSelector((state) => state.auth.isAuth);
 	const { register, handleSubmit } = useForm<LoginInput>();
 
-	if (!!token) {
-		return <Navigate to="/" />;
-	}
-
+	
 	const onSubmit: SubmitHandler<LoginInput> = (data) => {
 		dispatch(login({ data }));
 	};
+	if (isAuth) {
+		return <Navigate to='/' />;
+	}
+
 
 	return (
 		<div className={s.login}>
@@ -26,17 +27,17 @@ export const Login = () => {
 				<input
 					{...register("email", { required: true })}
 					type={"email"}
-					placeholder="Введите почту..."
+					placeholder='Введите почту...'
 					className={s.input}
 				/>
 				<input
 					{...register("password", { required: true })}
 					type={"password"}
-					placeholder="Введите пароль..."
+					placeholder='Введите пароль...'
 					className={s.input}
 				/>
 				<div className={s.actions}>
-					<input className={s.btn} type="submit" value="Войти" />
+					<input className={s.btn} type='submit' value='Войти' />
 					<NavLink to={"/registration"}>
 						<button className={s.btn}>Зарегистрироваться</button>
 					</NavLink>

@@ -6,6 +6,7 @@ export interface authState {
 	user?: userType;
 	isFetching: boolean;
 	resultRes?: resultResType;
+	isAuth: boolean;
 	isOk: boolean;
 }
 
@@ -13,6 +14,7 @@ const initialState: authState = {
 	user: undefined,
 	isFetching: false,
 	resultRes: undefined,
+	isAuth: false,
 	isOk: false,
 };
 export const auth = createAsyncThunk("auth/auth", async function (_, thunkAPI) {
@@ -62,17 +64,18 @@ const authSlice = createSlice({
 		},
 	},
 	extraReducers: (builder) => {
-		builder.addCase(registration.pending, (state) => {
-			state.isFetching = true;
-		});
 		builder.addCase(registration.fulfilled, (state, action) => {
-			state.isFetching = false;
 			state.resultRes = action.payload;
 			state.isOk = true;
 		});
 		builder.addCase(registration.rejected, (state) => {
-			state.isFetching = false;
 			state.isOk = false;
+		});
+		builder.addCase(login.fulfilled, (state) => {
+			state.isAuth = true;
+		});
+		builder.addCase(auth.fulfilled, (state) => {
+			state.isAuth = true;
 		});
 	},
 });

@@ -11,8 +11,8 @@ import s from "./ContactsBook.module.scss";
 export const ContactsBook = () => {
 	const userId = useAppSelector((state) => state.auth.user?.id);
 	const contacts = useAppSelector((state) => state.contacts.contacts);
+	const isAuth = useAppSelector((state) => state.auth.isAuth);
 	const dispatch = useAppDispatch();
-	const token = localStorage.getItem("token");
 
 	useEffect(() => {
 		dispatch(auth());
@@ -22,8 +22,11 @@ export const ContactsBook = () => {
 		userId && dispatch(getContacts(userId));
 	}, [dispatch, userId]);
 
-	if (!!token) {
-		return (
+	if (!isAuth) {
+		return <Navigate to="/login" />}
+
+
+	return (
 			<div className={s.contactBooks}>
 				{userId && <CreateContact />}
 				<SearchContact />
@@ -34,7 +37,4 @@ export const ContactsBook = () => {
 				</div>
 			</div>
 		);
-	}
-
-	return <Navigate to="/login" />;
 };

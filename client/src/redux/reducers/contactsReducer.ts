@@ -82,6 +82,11 @@ const contactsSlise = createSlice({
 				}
 			});
 		},
+		searchContact(state, action) {
+			state.contacts.filter(el => {
+				return el.name.includes(action.payload) || el.phoneNumber.includes(action.payload)
+			})
+		}
 	},
 	extraReducers: (builder) => {
 		builder.addCase(createContact.fulfilled, (state, action) => {
@@ -96,5 +101,5 @@ const contactsSlise = createSlice({
 		});
 	},
 });
-export const { setContacts, updateContact } = contactsSlise.actions;
+export const { setContacts, updateContact, searchContact } = contactsSlise.actions;
 export default contactsSlise.reducer;
