@@ -41,3 +41,31 @@
 	text-decoration: none;
 	color: #19208c;
 }
+.edit {
+	position: absolute;
+	top: 16px + 24px;
+	right: 16px;
+	margin: 0;
+	padding: 0;
+	background: transparent;
+	border-radius: 50%;
+	border: none;
+	width: 24px;
+	height: 24px;
+	& svg:hover {
+		transform: scale(1.06);
+	}
+	&__close {
+		position: absolute;
+		top: auto;
+		bottom: 16px;
+		right: 16px;
+		margin: 0;
+		padding: 0;
+		background: transparent;
+		border-radius: 50%;
+		border: none;
+		width: 24px;
+		height: 24px;
+	}
+}
