@@ -92,7 +92,7 @@ router.post(
 				return res.status(400).json({ message: "Invalid password" });
 			}
 			const token = jwt.sign({ id: user.id }, config.get("secretKey"), {
-				expiresIn: "1h",
+				expiresIn: "24h",
 			});
 			return res.json({
 				token,
