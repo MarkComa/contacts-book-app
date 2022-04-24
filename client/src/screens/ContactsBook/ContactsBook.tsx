@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { ContactCard } from "../../components/ContactCard/ContactCard";
 import { CreateContact } from "../../components/CreateContact/CreateContact";
@@ -9,8 +9,9 @@ import { getContacts } from "../../redux/reducers/contactsReducer";
 import s from "./ContactsBook.module.scss";
 
 export const ContactsBook = () => {
+	const [search, setSearch] = useState<string>("")
 	const userId = useAppSelector((state) => state.auth.user?.id);
-	const contacts = useAppSelector((state) => state.contacts.contacts);
+	let contacts = useAppSelector((state) => state.contacts.contacts);
 	const isAuth = useAppSelector((state) => state.auth.isAuth);
 	const dispatch = useAppDispatch();
 
@@ -25,11 +26,16 @@ export const ContactsBook = () => {
 	if (!isAuth) {
 		return <Navigate to="/login" />}
 
+	if (search !== "") {
+		contacts = contacts.filter(el => {
+			return el.name.toLowerCase().includes(search) || el.phoneNumber.includes(search)
+		})
+	}
 
 	return (
 			<div className={s.contactBooks}>
 				{userId && <CreateContact />}
-				<SearchContact />
+				<SearchContact search={search} setSearch={setSearch} />
 				<div className={s.cards}>
 					{contacts.map((el, index) => (
 						<ContactCard key={index} contact={el} />

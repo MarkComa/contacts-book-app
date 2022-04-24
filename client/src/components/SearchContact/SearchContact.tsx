@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { SearchContactProps } from "./SearchContact.props";
 import s from "./SearchContact.module.scss";
+import { useAppDispatch } from "../../hooks/hooks";
 
-export const SearchContact = ({
+export const SearchContact = ({ search, setSearch, 
 	className,
-	...props
+	...propsЫ
 }: SearchContactProps): JSX.Element => {
-	const [search, setSearch] = useState<string>("");
+	const dispatch = useAppDispatch()
 	return (
 		<div className={s.searchContact}>
 			<input
@@ -15,7 +16,6 @@ export const SearchContact = ({
 				value={search}
 				onChange={(e) => setSearch(e.target.value)}
 			/>
-			<button className={s.btn}>Найти</button>
 		</div>
 	);
 };
