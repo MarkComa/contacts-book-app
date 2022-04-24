@@ -1,15 +1,13 @@
 import React from "react";
 import { SearchContactProps } from "./SearchContact.props";
 import s from "./SearchContact.module.scss";
-import { useAppDispatch } from "../../hooks/hooks";
 
 export const SearchContact = ({ search, setSearch, 
 	className,
-	...propsЫ
+	...props
 }: SearchContactProps): JSX.Element => {
-	const dispatch = useAppDispatch()
 	return (
-		<div className={s.searchContact}>
+		<div className={s.searchContact} {...props}>
 			<input
 				type="text"
 				placeholder="Поиск"
