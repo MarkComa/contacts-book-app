@@ -2,12 +2,15 @@ import React from "react";
 import { SearchContactProps } from "./SearchContact.props";
 import s from "./SearchContact.module.scss";
 
-export const SearchContact = ({ search, setSearch, 
+export const SearchContact = ({
+	search,
+	setSearch,
 	className,
 	...props
 }: SearchContactProps): JSX.Element => {
 	return (
 		<div className={s.searchContact} {...props}>
+			<p>Поиск:</p>
 			<input
 				type="text"
 				placeholder="Поиск"
