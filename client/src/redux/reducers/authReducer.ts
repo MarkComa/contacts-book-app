@@ -62,11 +62,11 @@ const authSlice = createSlice({
 		setUser(state, action: PayloadAction<userType>) {
 			state.user = action.payload;
 		},
-		logout(state){
-			state.user = undefined
-			state.isAuth = false
+		logout(state) {
+			state.user = undefined;
+			state.isAuth = false;
 			localStorage.removeItem("token");
-		} 
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(registration.fulfilled, (state, action) => {
@@ -79,8 +79,14 @@ const authSlice = createSlice({
 		builder.addCase(login.fulfilled, (state) => {
 			state.isAuth = true;
 		});
+		builder.addCase(auth.pending, (state) => {
+			state.isAuth = false;
+		});
 		builder.addCase(auth.fulfilled, (state) => {
 			state.isAuth = true;
+		});
+		builder.addCase(auth.rejected, (state) => {
+			state.isAuth = false;
 		});
 	},
 });
