@@ -9,7 +9,7 @@ import { getContacts } from "../../redux/reducers/contactsReducer";
 import s from "./ContactsBook.module.scss";
 
 export const ContactsBook = () => {
-	const [search, setSearch] = useState<string>("")
+	const [search, setSearch] = useState<string>("");
 	const userId = useAppSelector((state) => state.auth.user?.id);
 	let contacts = useAppSelector((state) => state.contacts.contacts);
 	const isAuth = useAppSelector((state) => state.auth.isAuth);
@@ -24,23 +24,27 @@ export const ContactsBook = () => {
 	}, [dispatch, userId]);
 
 	if (!isAuth) {
-		return <Navigate to="/login" />}
+		return <Navigate to="/login" />;
+	}
 
 	if (search !== "") {
-		contacts = contacts.filter(el => {
-			return el.name.toLowerCase().includes(search) || el.phoneNumber.includes(search)
-		})
+		contacts = contacts.filter((el) => {
+			return (
+				el.name.toLowerCase().includes(search) ||
+				el.phoneNumber.includes(search)
+			);
+		});
 	}
 
 	return (
-			<div className={s.contactBooks}>
-				{userId && <CreateContact />}
-				<SearchContact search={search} setSearch={setSearch} />
-				<div className={s.cards}>
-					{contacts.map((el, index) => (
-						<ContactCard key={index} contact={el} />
-					))}
-				</div>
+		<div className={s.contactBooks}>
+			{userId && <CreateContact />}
+			<SearchContact search={search} setSearch={setSearch} />
+			<div className={s.cards}>
+				{contacts.map((el, index) => (
+					<ContactCard key={index} contact={el} />
+				))}
 			</div>
-		);
+		</div>
+	);
 };
