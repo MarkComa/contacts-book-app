@@ -10,7 +10,7 @@ export const SearchContact = ({
 }: SearchContactProps): JSX.Element => {
 	return (
 		<div className={s.searchContact} {...props}>
-			<p>Поиск:</p>
+			<span>Поиск:</span>
 			<input
 				type="text"
 				placeholder="Поиск"
