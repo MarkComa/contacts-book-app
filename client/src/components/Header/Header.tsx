@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { logout } from "../../redux/reducers/authReducer";
 import s from "./Header.module.scss";
+import logo from './logo.png'
 
 export const Header = (): JSX.Element => {
 	const email = useAppSelector((state) => state.auth.user?.email);
@@ -11,7 +12,7 @@ export const Header = (): JSX.Element => {
 	return (
 		<div className={s.header}>
 			<Link to={"/"}>
-				<img src="" alt="logo" />
+				<img src={logo} alt="logo" width='56' height='56' />
 			</Link>
 			{isAuth && (
 				<div className={s.action}>
