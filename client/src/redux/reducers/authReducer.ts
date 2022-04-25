@@ -72,6 +72,7 @@ const authSlice = createSlice({
 		builder.addCase(registration.fulfilled, (state, action) => {
 			state.resultRes = action.payload;
 			state.isOk = true;
+			alert(action.payload.message)
 		});
 		builder.addCase(registration.rejected, (state) => {
 			state.isOk = false;
@@ -80,7 +81,7 @@ const authSlice = createSlice({
 			state.isAuth = true;
 		});
 		builder.addCase(auth.pending, (state) => {
-			state.isAuth = false;
+			//сделать иконку загрузки
 		});
 		builder.addCase(auth.fulfilled, (state) => {
 			state.isAuth = true;
