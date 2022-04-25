@@ -5,6 +5,10 @@
 	height: 60px;
 	border-bottom: 1px solid var(--primary);
 	background: #fff;
+	align-items: center;
+	& img {
+		margin-left: 16px;
+	}
 }
 .action {
 	margin-right: 32px;

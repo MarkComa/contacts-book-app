@@ -3,7 +3,9 @@
 	padding: 8px;
 	background: #fff;
 	border-radius: 8px;
-
+	& span {
+		margin-right: 16px;
+	}
 	& input {
 		font-size: 16px;
 		border: 2px solid #19208c;
