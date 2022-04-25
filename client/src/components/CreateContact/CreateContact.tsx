@@ -49,9 +49,10 @@ export const CreateContact = ({
 					<div className={s.block__input}>
 						<input
 							{...register("phoneNumber", { required: true })}
-							type='tel'
-							pattern="8-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
-							placeholder="8-ххх-ххх-хх-хх"
+							type="tel"
+							pattern="8\s[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
+							title="Используйте формат: 8 800-535-35-35"
+							placeholder="Введите номер телефона"
 						/>
 						{errors.phoneNumber && (
 							<span className={s.error}>Обязательное поле</span>
