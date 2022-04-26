@@ -5,4 +5,3 @@ export interface ContactCardProps
 	extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
 	contact: contactsType;
 }
-

@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { ContactCard } from "../../components/ContactCard/ContactCard";
-import { CreateContact } from "../../components/CreateContact/CreateContact";
-import { SearchContact } from "../../components/SearchContact/SearchContact";
+import {
+	ContactCard,
+	CreateContact,
+	Preloader,
+	SearchContact,
+} from "../../components";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { auth } from "../../redux/reducers/authReducer";
 import { getContacts } from "../../redux/reducers/contactsReducer";
@@ -13,6 +16,7 @@ export const ContactsBook = () => {
 	const userId = useAppSelector((state) => state.auth.user?.id);
 	let contacts = useAppSelector((state) => state.contacts.contacts);
 	const isAuth = useAppSelector((state) => state.auth.isAuth);
+	const isFetching = useAppSelector((state) => state.contacts.isFetching);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
@@ -34,6 +38,10 @@ export const ContactsBook = () => {
 				el.phoneNumber.includes(search)
 			);
 		});
+	}
+
+	if (isFetching) {
+		return <Preloader />;
 	}
 
 	return (
