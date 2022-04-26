@@ -5,10 +5,12 @@ import { registration } from "../../redux/reducers/authReducer";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { LoginInput } from "../../types/type";
+import { Preloader } from "../../components";
 
 export const Registration = () => {
 	const dispatch = useAppDispatch();
 	const isOk = useAppSelector((state) => state.auth.isOk);
+	const isFetching = useAppSelector((state) => state.auth.isFetching);
 	const { register, handleSubmit } = useForm<LoginInput>();
 
 	const onSubmit: SubmitHandler<LoginInput> = (data) => {
@@ -17,6 +19,10 @@ export const Registration = () => {
 
 	if (isOk) {
 		return <Navigate to="/login" />;
+	}
+
+	if (isFetching) {
+		return <Preloader />;
 	}
 
 	return (

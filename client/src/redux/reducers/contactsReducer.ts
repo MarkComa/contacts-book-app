@@ -49,7 +49,7 @@ export const editContact = createAsyncThunk(
 				data.phoneNumber,
 				owner,
 			);
-			return res.data
+			return res.data;
 		} catch (error) {
 			thunkAPI.rejectWithValue(error);
 		}
@@ -75,26 +75,50 @@ const contactsSlise = createSlice({
 		setContacts(state, action) {
 			state.contacts = action.payload.contacts;
 		},
-		updateContact(state, action) {
-			state.contacts.map((el) => {
-				if (el._id === action.payload._id) {
-					el = action.payload;
-				}
-			});
-		},
 	},
 	extraReducers: (builder) => {
+		builder.addCase(createContact.pending, (state) => {
+			state.isFetching = true;
+		});
 		builder.addCase(createContact.fulfilled, (state, action) => {
 			state.contacts.push(action.payload);
+			state.isFetching = false;
 		});
-
+		builder.addCase(createContact.rejected, (state) => {
+			state.isFetching = false;
+		});
+		builder.addCase(removeContact.pending, (state) => {
+			state.isFetching = true;
+		});
 		builder.addCase(removeContact.fulfilled, (state, action) => {
 			const contacts = state.contacts.filter(
 				(el: contactsType) => el._id !== action.payload.id,
 			);
 			state.contacts = contacts;
+			state.isFetching = false;
+		});
+		builder.addCase(removeContact.rejected, (state) => {
+			state.isFetching = false;
+		});
+		builder.addCase(editContact.pending, (state) => {
+			state.isFetching = true;
+		});
+		builder.addCase(editContact.fulfilled, (state) => {
+			state.isFetching = false;
+		});
+		builder.addCase(editContact.rejected, (state) => {
+			state.isFetching = false;
+		});
+		builder.addCase(getContacts.pending, (state) => {
+			state.isFetching = true;
+		});
+		builder.addCase(getContacts.fulfilled, (state) => {
+			state.isFetching = false;
+		});
+		builder.addCase(getContacts.rejected, (state) => {
+			state.isFetching = false;
 		});
 	},
 });
-export const { setContacts, updateContact } = contactsSlise.actions;
+export const { setContacts } = contactsSlise.actions;
 export default contactsSlise.reducer;

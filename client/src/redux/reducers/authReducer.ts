@@ -69,25 +69,39 @@ const authSlice = createSlice({
 		},
 	},
 	extraReducers: (builder) => {
+		builder.addCase(registration.pending, (state) => {
+			state.isFetching = true;
+		});
 		builder.addCase(registration.fulfilled, (state, action) => {
 			state.resultRes = action.payload;
 			state.isOk = true;
-			alert(action.payload.message)
+			state.isFetching = false;
+			alert(action.payload.message);
 		});
 		builder.addCase(registration.rejected, (state) => {
 			state.isOk = false;
+			state.isFetching = false;
+		});
+		builder.addCase(login.pending, (state) => {
+			state.isFetching = true;
 		});
 		builder.addCase(login.fulfilled, (state) => {
 			state.isAuth = true;
+			state.isFetching = false;
+		});
+		builder.addCase(login.rejected, (state) => {
+			state.isFetching = false;
 		});
 		builder.addCase(auth.pending, (state) => {
-			//сделать иконку загрузки
+			state.isFetching = true;
 		});
 		builder.addCase(auth.fulfilled, (state) => {
 			state.isAuth = true;
+			state.isFetching = false;
 		});
 		builder.addCase(auth.rejected, (state) => {
 			state.isAuth = false;
+			state.isFetching = false;
 		});
 	},
 });
