@@ -3,6 +3,7 @@ import { ContactCardProps } from "./ContactCard.props";
 import s from "./ContactCard.module.scss";
 import {
 	editContact,
+	getContacts,
 	removeContact,
 } from "../../redux/reducers/contactsReducer";
 import { useAppDispatch } from "../../hooks/hooks";
@@ -21,6 +22,7 @@ export const ContactCard: React.FC<ContactCardProps> = memo(
 		const onSubmit: SubmitHandler<contactType> = (data) => {
 			dispatch(editContact({ id, data, owner }));
 			setEditMode(false);
+			dispatch(getContacts(owner));
 		};
 
 		return (
@@ -89,7 +91,24 @@ export const ContactCard: React.FC<ContactCardProps> = memo(
 						<input
 							className={s.phoneNumber}
 							{...register("phoneNumber", { required: true })}
-							type="number"
+							type="tel"
+							pattern="^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$"
+							title="+79261234567, 
+							89261234567, 
+							79261234567, 
+							+7 926 123 45 67, 
+							8(926)123-45-67, 
+							123-45-67, 
+							9261234567, 
+							79261234567, 
+							(495)1234567, 
+							(495) 123 45 67, 
+							89261234567, 
+							8-926-123-45-67, 
+							8 927 1234 234, 
+							8 927 12 12 888, 
+							8 927 12 555 12, 
+							8 927 123 8 123"
 							placeholder="Введите номер телефона"
 						/>
 						<input type="submit" value="Сохранить" />

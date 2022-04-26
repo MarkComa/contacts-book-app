@@ -18,6 +18,7 @@ export const ContactsBook = () => {
 	const isAuth = useAppSelector((state) => state.auth.isAuth);
 	const isFetching = useAppSelector((state) => state.contacts.isFetching);
 	const dispatch = useAppDispatch();
+	const token = localStorage.getItem("token");
 
 	useEffect(() => {
 		dispatch(auth());
@@ -27,7 +28,7 @@ export const ContactsBook = () => {
 		userId && dispatch(getContacts(userId));
 	}, [dispatch, userId]);
 
-	if (!isAuth) {
+	if (!isAuth || !token) {
 		return <Navigate to="/login" />;
 	}
 
