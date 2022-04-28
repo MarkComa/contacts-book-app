@@ -3,7 +3,6 @@ import { ContactCardProps } from "./ContactCard.props";
 import s from "./ContactCard.module.scss";
 import {
 	editContact,
-	getContacts,
 	removeContact,
 } from "../../redux/reducers/contactsReducer";
 import { useAppDispatch } from "../../hooks/hooks";
