@@ -24,3 +24,8 @@
 		grid-template-columns: 1fr;
 	}
 }
+.createNewContact {
+	grid-column: 1 / end;
+	text-align: center;
+	font-size: 18px;
+}
