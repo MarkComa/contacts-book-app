@@ -49,6 +49,7 @@ export const editContact = createAsyncThunk(
 				data.phoneNumber,
 				owner,
 			);
+			await thunkAPI.dispatch(getContacts(owner))
 			return res.data;
 		} catch (error) {
 			thunkAPI.rejectWithValue(error);

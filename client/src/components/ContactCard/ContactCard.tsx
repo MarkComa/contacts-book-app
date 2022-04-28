@@ -17,14 +17,11 @@ export const ContactCard: React.FC<ContactCardProps> = memo(
 		const { register, handleSubmit } = useForm<contactType>();
 		const id = contact?._id;
 		const owner = contact?.owner;
-		console.log("render");
 
 		const onSubmit: SubmitHandler<contactType> = (data) => {
 			dispatch(editContact({ id, data, owner }));
 			setEditMode(false);
-			dispatch(getContacts(owner));
 		};
-
 		return (
 			<div className={s.contactCard}>
 				{!editMode && (
@@ -83,13 +80,14 @@ export const ContactCard: React.FC<ContactCardProps> = memo(
 				{editMode && (
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<input
-							className={s.name}
+							className={s.edit__name}
 							{...register("name", { required: true })}
 							type="text"
 							placeholder="Введите имя"
+							defaultValue={contact.name}
 						/>
 						<input
-							className={s.phoneNumber}
+							className={s.edit__phoneNumber}
 							{...register("phoneNumber", { required: true })}
 							type="tel"
 							pattern="^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$"
@@ -110,8 +108,9 @@ export const ContactCard: React.FC<ContactCardProps> = memo(
 							8 927 12 555 12, 
 							8 927 123 8 123"
 							placeholder="Введите номер телефона"
+							defaultValue={contact.phoneNumber}
 						/>
-						<input type="submit" value="Сохранить" />
+						<input className={s.edit__save} type="submit" value="Сохранить" />
 						<button
 							className={s.edit__close}
 							onClick={() => {

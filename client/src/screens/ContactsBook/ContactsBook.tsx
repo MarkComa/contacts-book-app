@@ -52,7 +52,7 @@ export const ContactsBook = () => {
 			<div className={s.cards}>
 				{contacts.length !== 0 ? (contacts.map((el, index) => (
 					<ContactCard key={index} contact={el} />
-				))): <div className={s.createNewContact}>Создайте свой первый контакт</div>}
+				))): <div className={s.createNewContact}>Создайте контакт</div>}
 			</div>
 		</div>
 	);
