@@ -58,7 +58,6 @@ router.post(
 			user.save();
 			return res.status(201).json({ message: "user was created" });
 		} catch (error) {
-			console.log(error);
 			res.send({ message: "Server Error" });
 		}
 	},
@@ -84,7 +83,7 @@ router.post(
 			const user = await User.findOne({ email });
 
 			if (!user) {
-				return res.status(404).json({ message: "User not found" });
+				return res.status(400).json({ message: "User not found" });
 			}
 
 			const isPassValid = bcrypt.compareSync(password, user.password);
@@ -94,6 +93,7 @@ router.post(
 			const token = jwt.sign({ id: user.id }, config.get("secretKey"), {
 				expiresIn: "24h",
 			});
+
 			return res.json({
 				token,
 				user: {
@@ -103,7 +103,7 @@ router.post(
 				},
 			});
 		} catch (error) {
-			res.send({ message: "Server Error" });
+			return res.json({ message: "Server Error" });
 		}
 	},
 );

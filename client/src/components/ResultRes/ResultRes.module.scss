@@ -1,0 +1,14 @@
+.preloader {
+	position: fixed;
+	z-index: 100;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	background: rgba(20, 20, 20, 0.234);
+	& img {
+		position: fixed;
+		top: calc(50vh - 75.5px);
+		left: calc(50vw - 75.5px);
+	}
+}

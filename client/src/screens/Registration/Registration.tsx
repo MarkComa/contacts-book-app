@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { LoginInput } from "../../types/type";
 import { Preloader } from "../../components";
+import { ResultRes } from "../../components/ResultRes/ResultRes";
 
 export const Registration = () => {
 	const dispatch = useAppDispatch();
@@ -52,6 +53,7 @@ export const Registration = () => {
 					</NavLink>
 				</div>
 			</form>
+			<ResultRes />
 		</div>
 	);
 };
