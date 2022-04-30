@@ -80,7 +80,7 @@ const authSlice = createSlice({
 			alert(action.payload.message);
 			state.resultRes.message = "";
 		});
-		builder.addCase(registration.rejected, (state, action: any) => {
+		builder.addCase(registration.rejected, (state, action: any) => { //при получении экшена для rejected от блока catch, на сколько мне известно, нет возможности типизировать иначе.
 			state.isOk = false;
 			state.isFetching = false;
 			state.resultRes.message = action.payload.response.data.message;

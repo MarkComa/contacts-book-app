@@ -12,6 +12,7 @@ export const Login = () => {
 	const dispatch = useAppDispatch();
 	const isAuth = useAppSelector((state) => state.auth.isAuth);
 	const isFetching = useAppSelector((state) => state.auth.isFetching);
+	const resultRes = useAppSelector((state) => state.auth.resultRes);
 
 	const {
 		register,
@@ -63,7 +64,7 @@ export const Login = () => {
 					</NavLink>
 				</div>
 			</form>
-			<ResultRes />
+			{resultRes.message !== '' && <ResultRes message={resultRes.message}/>}
 		</div>
 	);
 };

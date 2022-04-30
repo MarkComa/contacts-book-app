@@ -12,8 +12,9 @@ export const Registration = () => {
 	const dispatch = useAppDispatch();
 	const isOk = useAppSelector((state) => state.auth.isOk);
 	const isFetching = useAppSelector((state) => state.auth.isFetching);
+	const resultRes = useAppSelector((state) => state.auth.resultRes);
 	const { register, handleSubmit } = useForm<LoginInput>();
-
+	
 	const onSubmit: SubmitHandler<LoginInput> = (data) => {
 		dispatch(registration({ data }));
 	};
@@ -53,7 +54,7 @@ export const Registration = () => {
 					</NavLink>
 				</div>
 			</form>
-			<ResultRes />
+			{resultRes.message !== '' && <ResultRes message={resultRes.message}/>}
 		</div>
 	);
 };

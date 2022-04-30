@@ -1,14 +1,13 @@
-.preloader {
+.resultRes {
 	position: fixed;
+	padding: 8px;
 	z-index: 100;
-	top: 0;
-	right: 0;
-	left: 0;
-	bottom: 0;
-	background: rgba(20, 20, 20, 0.234);
-	& img {
-		position: fixed;
-		top: calc(50vh - 75.5px);
-		left: calc(50vw - 75.5px);
-	}
+	bottom: 20%;
+	background: lighten($color: #ff0000, $amount: 30);
+	max-width: 200px;
+	height: 80px;
+	border-radius: 20px;
+	display: flex;
+    justify-content: center;
+    align-items: center;
 }
