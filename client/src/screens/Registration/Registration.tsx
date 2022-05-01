@@ -13,12 +13,15 @@ export const Registration = () => {
 	const isOk = useAppSelector((state) => state.auth.isOk);
 	const isFetching = useAppSelector((state) => state.auth.isFetching);
 	const resultRes = useAppSelector((state) => state.auth.resultRes);
+	const isAuth = useAppSelector((state) => state.auth.isAuth);
 	const { register, handleSubmit } = useForm<LoginInput>();
 	
 	const onSubmit: SubmitHandler<LoginInput> = (data) => {
 		dispatch(registration({ data }));
 	};
-
+	if (isAuth) {
+		return <Navigate to="/" />;
+	}
 	if (isOk) {
 		return <Navigate to="/login" />;
 	}

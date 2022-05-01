@@ -28,7 +28,7 @@ export const ContactsBook = () => {
 		userId && dispatch(getContacts(userId));
 	}, [dispatch, userId]);
 
-	if (!isAuth || !token) {
+	if (!isAuth || !!!token) {
 		return <Navigate to="/login" />;
 	}
 
