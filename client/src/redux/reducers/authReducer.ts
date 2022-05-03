@@ -25,6 +25,7 @@ export const auth = createAsyncThunk("auth/auth", async function (_, thunkAPI) {
 		thunkAPI.dispatch(setUser(response.data.user));
 	} catch (error) {
 		localStorage.removeItem("token");
+		return thunkAPI.rejectWithValue(error);
 	}
 });
 

@@ -14,6 +14,6 @@ module.exports = (req, res, next) => {
 		req.user = decoded;
 		next();
 	} catch (error) {
-		return res.send({ message: "Ошибка сервера" });
+		return res.status(400).json({ message: "Server error auth" });
 	}
 };

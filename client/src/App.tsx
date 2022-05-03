@@ -8,7 +8,7 @@ import { Registration } from "./screens/Registration/Registration";
 
 function App() {
 	return (
-		<Layout className="App">
+		<Layout>
 			<Routes>
 				<Route path="/" element={<ContactsBook />} />
 				<Route path="/registration" element={<Registration />} />

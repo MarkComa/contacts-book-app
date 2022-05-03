@@ -13,6 +13,7 @@ router.get("/auth", authMiddleware, async (req, res) => {
 		const token = jwt.sign({ id: user.id }, config.get("secretKey"), {
 			expiresIn: "1h",
 		});
+		if (user){
 		return res.json({
 			token,
 			user: {
@@ -20,7 +21,7 @@ router.get("/auth", authMiddleware, async (req, res) => {
 				email: user.email,
 				contact: user.contact,
 			},
-		});
+		});}
 	} catch (error) {
 		res.send({ message: "Server Error" });
 	}

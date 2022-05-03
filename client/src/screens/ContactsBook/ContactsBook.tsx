@@ -18,7 +18,6 @@ export const ContactsBook = () => {
 	const isAuth = useAppSelector((state) => state.auth.isAuth);
 	const isFetching = useAppSelector((state) => state.contacts.isFetching);
 	const dispatch = useAppDispatch();
-	const token = localStorage.getItem("token");
 
 	useEffect(() => {
 		dispatch(auth());
@@ -28,14 +27,14 @@ export const ContactsBook = () => {
 		userId && dispatch(getContacts(userId));
 	}, [dispatch, userId]);
 
-	if (!isAuth || !!!token) {
+	if (!isAuth) {
 		return <Navigate to="/login" />;
 	}
 
 	if (search !== "") {
 		contacts = contacts.filter((el) => {
 			return (
-				el.name.toLowerCase().includes(search) ||
+				el.name.toLowerCase().includes(search.toLowerCase()) ||
 				el.phoneNumber.includes(search)
 			);
 		});
