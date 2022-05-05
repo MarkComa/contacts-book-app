@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { logout } from "../../redux/reducers/authReducer";
 import s from "./Header.module.scss";
@@ -11,9 +10,7 @@ export const Header = (): JSX.Element => {
 	const dispatch = useAppDispatch();
 	return (
 		<div className={s.header}>
-			<Link to={"/"}>
-				<img src={logo} alt="logo" width='56' height='56' />
-			</Link>
+			<img src={logo} alt="logo" width='56' height='56' />
 			{isAuth && (
 				<div className={s.action}>
 					<span>{email}</span>
