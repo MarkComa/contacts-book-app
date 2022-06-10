@@ -13,3 +13,5 @@
 -   Сервер из папки server: npm run dev
 
 -   Клиент из папки client: npm start
+
+- node v14.17.3
